@@ -1,0 +1,106 @@
+type Collection @entity {
+  id: ID!
+
+  # Contract address
+  contractAddress: Bytes!
+
+  # Name
+  name: String!
+
+  # Symbol
+  symbol: String!
+
+  # Number of unique transactions
+  totalTransactions: BigInt!
+
+  # Total volume traded in BNB
+  totalVolumeBNB: BigDecimal!
+
+  # Number tokens listed
+  numberTokensListed: BigDecimal!
+
+  # Tokens
+  tokenIds: TokenId[]!
+}
+
+type TokenId @entity {
+  id: ID!
+
+  # Collection
+  collection: [Collection!]! @derivedFrom(field: "collectionAddress")
+
+  # TokenId
+  tokenId: BigInt!
+
+  # Metadata link
+  metadata: String!
+
+  # Name
+  name: String!
+
+  # Image
+  imageLink: String!
+
+  # Description
+  description: String!
+
+  # Attributes (if any)
+  attributes: String
+
+  # TokenId specific volume
+  tradeVolumeBNB: BigDecimal!
+
+  # Number of transactions for this token
+  totalTransactions: BigInt!
+}
+
+type User @entity {
+  id: ID!
+
+  # User Address
+  userAddress: Bytes!
+
+  # User name (if available)
+  userName: String
+
+  # Number tokens listed
+  numberTokensListed: BigInt!
+
+  # Number tokens purchased
+  numberTokensPurchased: BigInt!
+
+  # Number tokens sold
+  numberTokensSold: BigInt!
+
+  # Volume in BNB of tokens purchased
+  tokenVolumeInBNBTokensPurchased: BigDecimal!
+
+  # Volume in BNB of tokens sold
+  totalVolumeInBNBTokensSold: BigDecimal!
+
+  # For creators and treasury addresses
+  totalFeesCollectedInBNB: BigDecimal!
+}
+
+type Transaction @entity {
+  id: ID!
+
+  block: BigInt!
+  timestamp: BigInt!
+
+  # Collection address
+  collection: [Collection!]! @derivedFrom(field: "collectionAddress")
+
+  # TokenId
+  tokenId: BigInt!
+
+  # Price in BNB
+  price: BigDecimal!
+
+  # Buyer address
+  buyer: [User!]! @derivedFrom(field: "userAddress")
+
+  # Seller address
+  seller: [User!]! @derivedFrom(field: "userAddress")
+  
+}
