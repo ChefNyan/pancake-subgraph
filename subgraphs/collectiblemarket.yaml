@@ -18,7 +18,7 @@ dataSources:
       file: ../src/collectiblemarket/index.ts
       entities:
         - Collection
-        - Token
+        - TokenId
         - Transaction
         - User
       abis:
@@ -38,5 +38,7 @@ dataSources:
         - event: CollectionUpdate(
         address indexed collection,address indexed creator,address indexed whitelistChecker,uint256 tradingFee,uint256 creatorFee)
           handler: handleCollectionUpdate
+        - event: RevenueClaim(address indexed claimer, uint256 amountClaimed)
+          handler: handleRevenueClaim
         - event: Trade(address indexed collection,uint256 indexed tokenId,address indexed seller,address buyer,uint256 price)
           handler: handleTrade
